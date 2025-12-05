@@ -1,0 +1,57 @@
+# High sparsity experiment configuration
+# Testing higher sparsity penalty for sparser representations
+
+# Model parameters
+model:
+  input_dim: null  
+  hidden_dim: 256  
+  activation: "relu"
+  sparsity_penalty: 0.1  
+  tie_weights: true  
+  dropout_rate: 0.1
+  bias: true
+
+# Training parameters  
+training:
+  epochs: 150
+  batch_size: 128 
+  learning_rate: 0.0005  
+  weight_decay: 1e-4
+  optimizer: "adam"
+  scheduler: "cosine"
+  early_stopping_patience: 20
+  gradient_clip: 1.0
+  
+# Data parameters
+data:
+  data_path: "9NewsGroups_annData_like.h5ad"
+  test_size: 0.2
+  val_size: 0.1
+  normalize: "standard"
+  random_state: 42
+  num_workers: 0
+  pin_memory: true
+
+# Experiment parameters
+experiment:
+  name: "vanilla_sae_high_sparsity"
+  project: "vanilla-sae-newsgroups"
+  tags: ["vanilla_sae", "newsgroups", "high_sparsity", "tied_weights"]
+  notes: "High sparsity experiment with tied weights"
+  save_dir: "results/high_sparsity"
+  log_interval: 10
+  eval_interval: 5
+  save_interval: 25
+  
+# Logging parameters
+logging:
+  use_wandb: true
+  wandb_mode: "online"
+  log_reconstructions: true
+  log_activations: true
+  n_reconstruction_samples: 8
+  
+# Hardware parameters
+hardware:
+  device: "auto"
+  mixed_precision: false

@@ -1,0 +1,57 @@
+# Large model experiment configuration
+# Testing larger hidden dimension for better reconstruction
+
+# Model parameters
+model:
+  input_dim: null  
+  hidden_dim: 1024  
+  activation: "elu"  
+  sparsity_penalty: 0.005  
+  tie_weights: false
+  dropout_rate: 0.05
+  bias: true
+
+# Training parameters  
+training:
+  epochs: 120
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 1e-5
+  optimizer: "adam"
+  scheduler: "plateau"  
+  early_stopping_patience: 25
+  gradient_clip: 1.0
+  
+# Data parameters
+data:
+  data_path: "9NewsGroups_annData_like.h5ad"
+  test_size: 0.2
+  val_size: 0.1
+  normalize: "standard"
+  random_state: 42
+  num_workers: 0
+  pin_memory: true
+
+# Experiment parameters
+experiment:
+  name: "vanilla_sae_large_model"
+  project: "vanilla-sae-newsgroups"
+  tags: ["vanilla_sae", "newsgroups", "large_model", "low_sparsity"]
+  notes: "Large model experiment with lower sparsity penalty"
+  save_dir: "results/large_model"
+  log_interval: 10
+  eval_interval: 5
+  save_interval: 20
+  
+# Logging parameters
+logging:
+  use_wandb: true
+  wandb_mode: "online"
+  log_reconstructions: true
+  log_activations: true
+  n_reconstruction_samples: 8
+  
+# Hardware parameters
+hardware:
+  device: "auto"
+  mixed_precision: true
